@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', startGame)
 
 // Define your `board` object here!
-var board = {
+let board = {
   cells: [
     // {row: 0, col: 0, isMine: true, hidden: true,},
     // {row: 0, col: 1, isMine: true, hidden: true,},
@@ -58,9 +58,16 @@ function checkForWin () {
   }
   if(count === 0){
     lib.displayMessage('You win!');
+    restart();
   }
 }
 
+function restart() {
+  let playAgain = confirm("Well done! Would you like to play again?");
+  if(playAgain === true){
+    location.reload();    
+  }
+}
 // Define this function to count the number of mines around the cells
 // (there could be as many as 8). You don't have to get the surrounding
 // cells yourself! Just use `lib.getSurroundingCells`:
