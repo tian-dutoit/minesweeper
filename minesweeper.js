@@ -48,6 +48,7 @@ function checkForWin () {
   // You can use this function call to declare a winner (once you've
   // detected that they've won, that is!)
   let count = 0;
+  let loss = 0;
   for (let i=0; i<board.cells.length; i++){
     if(board.cells[i].isMine === true && (!(board.cells[i].isMarked))){
       count ++;
@@ -55,17 +56,23 @@ function checkForWin () {
     else if(board.cells[i].isMine === false && board.cells[i].hidden === true){
       count ++;
     }
+    else if(board.cells[i].isMine === true && (!(board.cells[i].hidden))){
+      loss ++;
+    }
   }
   if(count === 0){
     lib.displayMessage('You win!');
-    restart();
+    setTimeout(function(){restart()}, 1500);
+  }
+  if(loss === 0){
+    setTimeout(function(){restart()}, 1500);
   }
 }
 
 function restart() {
-  let playAgain = confirm("Well done! Would you like to play again?");
+  let playAgain = confirm("Would you like to play again?");
   if(playAgain === true){
-    location.reload();    
+    location.reload();
   }
 }
 // Define this function to count the number of mines around the cells
