@@ -28,20 +28,17 @@ function startGame () {
 
 function setup(){
   let boardSize = prompt('How big do you want your minefield to be? Please select a length between 3 and 6.')
-  //alert(boardSize);
   if(boardSize < 3 || boardSize > 6){
-    alert("Please select a valid minefield size");
-    return;
+    alert("Please select a valid minefield size.");
+    setup();
   }
   else {
     for (let i=0; i < boardSize; i++){
       for (let j=0; j <boardSize; j++){
-        board.cells.push({row: i, col: j, hidden: true, isMine: false, isMarked: false});
-        console.log(board);
+        board.cells.push({row: i, col: j, hidden: true, isMarked: false, isMine:(Math.random() < 0.25)});
       }
     }
   }
-
 }
 // Define this function to look for a win condition:
 //
