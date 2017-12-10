@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', startGame)
-
 // Define your `board` object here!
 let board = {
   cells: [
@@ -17,6 +16,7 @@ let board = {
 function startGame () {
   // Don't remove this function call: it makes the game work!
   setup();
+  document.getElementById("reset").onclick = restart;
   document.addEventListener('click', checkForWin);
   document.addEventListener('contextmenu', checkForWin);
   for(let i=0; i<board.cells.length; i++){
@@ -60,20 +60,19 @@ function checkForWin () {
       loss ++;
     }
   }
-  if(count === 0){
-    lib.displayMessage('You win!');
-    setTimeout(function(){restart()}, 1500);
-  }
-  if(loss === 0){
-    setTimeout(function(){restart()}, 1500);
-  }
+  // if(count === 0){
+  //   lib.displayMessage('You win!');
+  //   setTimeout(function(){restart()}, 1500);
+  // }
+  // if(loss === 0){
+  //   setTimeout(function(){restart()}, 1500);
+  // }
 }
 
 function restart() {
-  let playAgain = confirm("Would you like to play again?");
-  if(playAgain === true){
+//  let playAgain = confirm("Would you like to play again?");
+//  if(playAgain === true){
     location.reload();
-  }
 }
 // Define this function to count the number of mines around the cells
 // (there could be as many as 8). You don't have to get the surrounding
