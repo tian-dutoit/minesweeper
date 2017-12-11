@@ -60,10 +60,10 @@ function checkForWin () {
       loss ++;
     }
   }
-  // if(count === 0){
-  //   lib.displayMessage('You win!');
+   if(count === 0){
+    lib.displayMessage('You win!');
   //   setTimeout(function(){restart()}, 1500);
-  // }
+   }
   // if(loss === 0){
   //   setTimeout(function(){restart()}, 1500);
   // }
