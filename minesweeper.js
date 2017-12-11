@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', startGame)
 // Define your `board` object here!
+let boardBlank = {
+  cells:[],
+}
 let board = {
   cells: [
     // {row: 0, col: 0, isMine: true, hidden: true,},
@@ -13,10 +16,13 @@ let board = {
     // {row: 2, col: 3, isMine: false, hidden: true,},
   ],
 }
+let boardSize = 4;
+
 function startGame () {
   // Don't remove this function call: it makes the game work!
+  document.getElementById("difficulty").onchange = difficultyChange; //changed to difficulty change so it would not lose selected board size.
   setup();
-  document.getElementById("reset").onclick = restart;
+  document.getElementById("reset").onclick = difficultyChange;
   document.addEventListener('click', checkForWin);
   document.addEventListener('contextmenu', checkForWin);
   for(let i=0; i<board.cells.length; i++){
@@ -25,18 +31,20 @@ function startGame () {
   lib.initBoard()
 }
 
+function difficultyChange() {
+  var clear = document.getElementsByClassName("board")[0];
+  clear.innerHTML = ''; // needed so the original board is removed.
+  delete board.cells
+  board.cells = [];
+  startGame();
+}
+
 
 function setup(){
-  let boardSize = prompt('How big do you want your minefield to be? Please select a length between 3 and 6.')
-  if(boardSize < 3 || boardSize > 6){
-    alert("Please select a valid minefield size.");
-    setup();
-  }
-  else {
-    for (let i=0; i < boardSize; i++){
-      for (let j=0; j <boardSize; j++){
-        board.cells.push({row: i, col: j, hidden: true, isMarked: false, isMine:(Math.random() < 0.25)});
-      }
+  boardSize = document.getElementById("difficulty").value;
+  for (let i=0; i < boardSize; i++){
+    for (let j=0; j <boardSize; j++){
+      board.cells.push({row: i, col: j, hidden: true, isMarked: false, isMine:(Math.random() < 0.25)});
     }
   }
 }
@@ -69,11 +77,9 @@ function checkForWin () {
   // }
 }
 
-function restart() {
-//  let playAgain = confirm("Would you like to play again?");
-//  if(playAgain === true){
-    location.reload();
-}
+// function restart() {
+//     location.reload();
+// }
 // Define this function to count the number of mines around the cells
 // (there could be as many as 8). You don't have to get the surrounding
 // cells yourself! Just use `lib.getSurroundingCells`:
